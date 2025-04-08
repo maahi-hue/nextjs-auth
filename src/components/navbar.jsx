@@ -19,7 +19,6 @@ const Navbar = () => {
     };
     fetchSession();
 
-    // Handle scroll event
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -49,12 +48,10 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-        {/* Logo */}
         <Link href="/" className="flex items-center space-x-3">
           <Image src="/logo.png" alt="MyApp Logo" width={40} height={40} />
         </Link>
 
-        {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6 text-base font-medium">
           {session?.user ? (
             <UserAccountNav />
@@ -76,7 +73,6 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Hamburger Icon for Mobile */}
         <div className="md:hidden">
           <button onClick={toggleMenu} className="text-black focus:outline-none">
             <svg
@@ -97,10 +93,8 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu (visible when isMenuOpen is true) */}
       {isMenuOpen && (
         <div className="md:hidden absolute top-0 right-0 mt-9 mr-4 bg-transparent text-white p-4 z-10">
-          {/* Floating card style */}
           <div className="space-y-4 rounded shadow-xl backdrop-blur-lg p-4 border border-gray-200">
             {session?.user ? (
               <UserAccountNav />

@@ -11,8 +11,6 @@ import { toast } from 'sonner';
 import GoogleSignInButton from '@/components/GoogleSignInButton';
 
 
-
-// Schema using zod
 const FormSchema = z.object({
   email: z.string().email('Invalid email').min(1, 'Email is required'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
@@ -56,7 +54,6 @@ const Login = () => {
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6 uppercase tracking-wide">Login</h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          {/* Email Field */}
           <div className="relative">
             <FaUser className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
@@ -70,7 +67,6 @@ const Login = () => {
             )}
           </div>
 
-          {/* Password Field */}
           <div className="relative">
             <FaLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
@@ -84,7 +80,6 @@ const Login = () => {
             )}
           </div>
 
-          {/* Login Button */}
           <button
             type="submit"
             className="w-full bg-[#FF4B2B] text-white py-3 rounded-full font-bold uppercase text-sm tracking-wider hover:scale-105 transition-transform duration-200"
@@ -95,7 +90,6 @@ const Login = () => {
           <GoogleSignInButton>Sign in with Google</GoogleSignInButton>
         </form>
 
-        {/* Links */}
         <div className="text-center mt-6 text-sm">
           <a href="/forgot-password" className="text-[#FF4B2B] hover:underline font-medium">
             Forgot Password?

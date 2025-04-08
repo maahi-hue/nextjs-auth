@@ -138,7 +138,6 @@
 .delay-200 {
   animation-delay: 0.2s;
 }
-/* Add this to your global CSS file (e.g., globals.css) */
 
 /* Keyframe animation to move the shapes */
 @keyframes moveShape {
@@ -197,7 +196,6 @@
   left: 20%;
   animation-delay: 6s;
 }
-/* Global CSS - Optional */
 nav {
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }

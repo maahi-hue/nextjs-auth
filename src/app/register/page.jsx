@@ -5,8 +5,6 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
-import { signIn } from 'next-auth/react';
 import React from 'react';
 import { toast } from 'sonner';
 import GoogleSignInButton from '@/components/GoogleSignInButton';
@@ -59,7 +57,6 @@ const Register = () => {
         </h2>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-          {/* Username */}
           <div className="flex flex-col gap-1">
             <div className="flex items-center border border-gray-300 rounded-full px-4 py-2 bg-white shadow-sm">
               <FaUser className="text-gray-500 mr-3" />
@@ -77,7 +74,6 @@ const Register = () => {
             )}
           </div>
 
-          {/* Email */}
           <div className="flex flex-col gap-1">
             <div className="flex items-center border border-gray-300 rounded-full px-4 py-2 bg-white shadow-sm">
               <FaEnvelope className="text-gray-500 mr-3" />
@@ -95,7 +91,6 @@ const Register = () => {
             )}
           </div>
 
-          {/* Password */}
           <div className="flex flex-col gap-1">
             <div className="flex items-center border border-gray-300 rounded-full px-4 py-2 bg-white shadow-sm">
               <FaLock className="text-gray-500 mr-3" />
@@ -113,7 +108,6 @@ const Register = () => {
             )}
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-[#FF4B2B] text-white py-3 rounded-full font-bold uppercase text-sm tracking-wider hover:scale-105 transition-transform duration-200"

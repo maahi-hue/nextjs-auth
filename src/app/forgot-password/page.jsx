@@ -55,7 +55,6 @@ export default function ForgetPassword() {
       localStorage.setItem("email", email);
       toast.success("OTP verified successfully! Redirecting...");
   
-      // After OTP verification, automatically log the user in
       const loginResponse = await signIn("credentials", {
         redirect: false,
         email: email,
@@ -83,7 +82,6 @@ export default function ForgetPassword() {
 
         {!otpSent ? (
           <>
-            {/* Email Input */}
             <div className="relative mb-5">
               <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 text-orange-400" />
               <input
@@ -96,7 +94,6 @@ export default function ForgetPassword() {
               />
             </div>
 
-            {/* Send OTP Button */}
             <button
               onClick={sendOtp}
               className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-full font-semibold transition-all duration-300"
@@ -106,7 +103,6 @@ export default function ForgetPassword() {
           </>
         ) : (
           <>
-            {/* OTP Input */}
             <div className="relative mb-5">
               <FaLock className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-400" />
               <input
@@ -119,7 +115,6 @@ export default function ForgetPassword() {
               />
             </div>
 
-            {/* Verify OTP Button */}
             <button
               onClick={verifyOtp}
               className="w-full bg-pink-500 hover:bg-pink-600 text-white py-3 rounded-full font-semibold transition-all duration-300"
@@ -129,10 +124,8 @@ export default function ForgetPassword() {
           </>
         )}
 
-        {/* Message Display */}
         {message && <p className="text-center text-red-500 mt-4">{message}</p>}
 
-        {/* Back to Login */}
         <p className="text-center text-sm text-gray-600 mt-6">
           Remember your password?{" "}
           <a href="/login" className="text-orange-500 hover:underline font-medium">

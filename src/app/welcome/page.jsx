@@ -6,7 +6,6 @@ const Page = async () => {
 
   return (
     <div className="relative flex justify-center items-center min-h-screen bg-gradient-to-r from-orange-400 to-pink-500 px-4 overflow-hidden">
-      {/* Animated Background Shapes */}
       <div className="absolute top-0 left-0 right-0 bottom-0 z-0">
         <div className="shape shape1"></div>
         <div className="shape shape2"></div>

@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 import {hash} from "bcrypt";
 import * as z from "zod";
 
-
-//define a schema for input registration
 const userSchema = z
   .object({
     username: z.string().min(1, 'Username is required').max(100),
@@ -52,9 +50,9 @@ export async function POST(req) {
             const {password: newUserPassword, ...rest} = newUser;
 
        return NextResponse.json({user: rest, message:"User created successfully"}, {status: 200});
-} catch(error){
-    console.error("API /api/user error:", error);
-    return NextResponse.json({message:"Internal server error"}, {status: 500});
-  }
+        } catch(error){
+           console.error("API /api/user error:", error);
+           return NextResponse.json({message:"Internal server error"}, {status: 500});
+          }
   
 }
