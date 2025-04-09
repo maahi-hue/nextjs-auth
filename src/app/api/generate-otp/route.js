@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 import { db } from '../../../lib/db';  // Import Prisma client
 import nodemailer from "nodemailer";
 
-// 🟢 Function to send OTP email
+// send OTP email
 const sendOtpEmail = async (email, otp) => {
     const transporter = nodemailer.createTransport({
-        service: "gmail", // Change this if using another provider
+        service: "gmail", 
         auth: {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
@@ -30,12 +30,12 @@ export async function POST(req) {
             return NextResponse.json({ message: "Email is required" }, { status: 400 });
         }
 
-        // Generate 6-digit OTP
+        // Generate OTP
         const otp = crypto.randomInt(100000, 999999).toString();
-        const   expires_at = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
+        const   expires_at = new Date(Date.now() + 10 * 60 * 1000);
 
-        // Store OTP in the database using Prisma
-        console.log(db.otps);  // Log to check if db.otp is available
+
+        console.log(db.otps);  
         await db.otps.upsert({
             where: { email: email },
             update: {
@@ -49,7 +49,6 @@ export async function POST(req) {
             },
         });
 
-        // Send OTP email
         await sendOtpEmail(email, otp);
 
         return NextResponse.json({ message: "OTP sent successfully" }, { status: 200 });

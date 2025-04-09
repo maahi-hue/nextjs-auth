@@ -72,6 +72,7 @@ export default function ForgetPassword() {
   };
   
   
+  
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-orange-400 to-pink-500 px-4">

@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 
 const GoogleSignInButton = () => {
   const loginWithGoogle = () => {
-    signIn('google', { callbackUrl: 'https://nextjs-auth-vert.vercel.app/welcome' });
+    signIn('google', { callbackUrl: ' http://localhost:3000/welcome' });
   };
 
   return (

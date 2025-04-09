@@ -1,8 +1,8 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { db } from "./db";
-import { compare } from "bcryptjs";
 import GoogleProvider from "next-auth/providers/google";
+import { compare } from "bcryptjs";
 
 export const authOptions = {
   adapter: PrismaAdapter(db),
@@ -11,52 +11,61 @@ export const authOptions = {
     strategy: "jwt",
   },
   pages: {
-    signIn: "/login", 
+    signIn: "/login",
   },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "email", placeholder: "jsmith@mail.com" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null
-        }
-       
-        const existingUser = await db.user.findUnique({
-          where: {
-            email: credentials?.email
-          }
-        })
-        if (!existingUser) {
-          return null;
-        }
-        if(existingUser.password) {
-          const passwordMatch = await compare(credentials?.password, existingUser?.password);
-          if (!passwordMatch) {
-           return null;
-          }
-        }
-       
+        if (credentials.email) {
+          const user = await db.user.findUnique({
+            where: {
+              email: credentials.email,
+            },
+          });
 
-        return {
-          id: existingUser.id,
-          username: existingUser.username,
-          email: existingUser.email,
+          if (!user) {
+            return null;
+          }
+
+          if (user.otpVerified) {
+            return {
+              id: user.id,
+              email: user.email,
+              username: user.username,
+            };
+          }
+
+          if (credentials.password) {
+            const passwordMatch = await compare(credentials.password, user.password);
+            if (!passwordMatch) {
+              return null;
+            }
+          }
+
+          return {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+          };
         }
-      }
-    })
+
+        return null;
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        return { ...token, username: user.username };
+        return { ...token, username: user.username, email: user.email };
       }
       return token;
     },
@@ -66,14 +75,16 @@ export const authOptions = {
         user: {
           ...session.user,
           username: token.username,
+          email: token.email,
         },
-      }
+      };
     },
   },
-   events: {
+  events: {
     async createUser({ user }) {
       if (!user.username) {
-        const username = user.email.split("@")[0] ;
+        const username =
+          user.email.split("@")[0] + Math.floor(Math.random() * 1000);
         await db.user.update({
           where: { id: user.id },
           data: { username },
